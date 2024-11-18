@@ -273,12 +273,12 @@ def main():
     bot = FarcasterDog()
     bot.start()
 
-# Menjadwalkan fungsi untuk berjalan setiap 6 jam
-schedule.every(24).hours.do(main)
-
-# Menjalankan scheduler
+# Menjalankan fungsi sekali setiap 24 jam
 if __name__ == "__main__":
     print("Scheduler started. Running every 24 hours...")
-    while True:
-        schedule.run_pending()  # Menjalankan tugas yang terjadwal
-        time.sleep(1)           # Menghindari CPU usage tinggi
+    try:
+        while True:
+            main()             # Jalankan tugas
+            time.sleep(86400)  # Tunggu selama 24 jam (86400 detik)
+    except KeyboardInterrupt:
+        print("\nScheduler stopped by user.")
